@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>USIU Lab Schedule Generator</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+
+    <style>
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #fff; /* White background */
+        color: #333; /* Black text color */
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2d3c90; /* Color 1 for headings */
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #2d3c90; /* Color 1 border for table */
+        margin-bottom: 40px;
+      }
+      th,
+      td {
+        border: 1px solid #2d3c90; /* Color 1 border for table cells */
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #ffcc00; /* Color 2 background for table headers */
+        color: #332900; /* White text color for table headers */
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2; /* Light gray background for even rows */
+      }
+      tr:hover {
+        background-color: #e0e0e0; /* Darker gray background for hover effect */
+      }
+
+      /* upload form heading */
+      .upload-form-heading {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 40px;
+      }
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #2d3c90; /* Color 1 border for form */
+        border-radius: 10px;
+        background-color: #f2f2f2; /* Light gray background for form */
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input[type='file'] {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc; /* Gray border for file input */
+        border-radius: 5px;
+      }
+      button[type='submit'] {
+        background-color: #2d3c90; /* Color 1 background for submit button */
+        color: #fff; /* White text color for submit button */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: medium;
+      }
+      button[type='submit']:hover {
+        background-color: #1f295d; /* Darker Color 1 background on hover */
+      }
+      .instructions {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f9f9f9; /* Light gray background for instructions */
+        border: 1px solid #ccc; /* Gray border for instructions */
+        border-radius: 5px;
+      }
+      .download-link {
+        margin-top: 20px;
+        /* text-align: center; */
+      }
+      .download-link a {
+        background-color: #2d3c90;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+      }
+      .download-link a:hover {
+        background-color: #1f295d;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>USIU Lab Schedule Generator</h1>
+
+    <!-- Instructions -->
+    <div class="instructions">
+      <h2>Instructions:</h2>
+      <p>Please upload a CSV file containing the course schedule data.</p>
+      <p>The CSV file should have the following columns:</p>
+      <ul>
+        <li>Start time</li>
+        <li>Days</li>
+        <li>Course code</li>
+        <li>Course section</li>
+        <li>Course name</li>
+        <li>Faculty</li>
+        <li>Capacity</li>
+      </ul>
+      <p>Example:</p>
+      <table>
+        <tr>
+          <th>Start time</th>
+          <th>Days</th>
+          <th>Course code</th>
+          <th>Course section</th>
+          <th>Course name</th>
+          <th>Faculty</th>
+          <th>Capacity</th>
+        </tr>
+        <tr>
+          <td>7:00 AM</td>
+          <td>MW</td>
+          <td>APT2010</td>
+          <td>C</td>
+          <td>SYSTEMS ANALYSIS & DESIGN</td>
+          <td>Mwangi, E</td>
+          <td>35</td>
+        </tr>
+      </table>
+      <h3>Assumptions:</h3>
+      <ul>
+        <li>All labs can handle the capacity of all courses.</li>
+        <li>
+          If the classes assigned to a specific time exceed the number of labs
+          available, it will cause an error.
+        </li>
+        <li>No collisions occur in the class schedule provided.</li>
+      </ul>
+      <h3>Sample Course Schedule:</h3>
+
+      <!-- Download link -->
+      <div class="download-link">
+        <p>Download a sample course schedule CSV file to use as a template.</p>
+        <a
+          href="/download-sample-schedule"
+          download
+          >Download Sample Schedule</a
+        >
+      </div>
+    </div>
+
+    <h2 class="upload-form-heading">Upload Course Schedule CSV:</h2>
+    <form
+      action="/"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <label for="file">Choose a CSV file:</label>
+      <input
+        type="file"
+        id="file"
+        name="file"
+        accept=".csv"
+        required
+      />
+      <button type="submit">Generate Lab Schedule</button>
+    </form>
+  </body>
+</html>
