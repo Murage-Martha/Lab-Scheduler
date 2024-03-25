@@ -5,7 +5,8 @@ import csv
 
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'C:\WINDOWS\Temp'
+# app.config['UPLOAD_FOLDER'] = 'C:\WINDOWS\Temp' #for Windows
+app.config['UPLOAD_FOLDER'] = '/tmp'  #for Linux
 
 
 class FeasibilityError(Exception):
