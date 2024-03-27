@@ -4,8 +4,8 @@ import os
 import csv
 
 
-app = Flask(__name__)
-# app.config['UPLOAD_FOLDER'] = 'C:\WINDOWS\Temp' #for Windows
+app = Flask(__name__) #creates flask app
+#app.config['UPLOAD_FOLDER'] = 'C:\WINDOWS\Temp' #for Windows
 app.config['UPLOAD_FOLDER'] = '/tmp'  #for Linux
 
 
@@ -98,7 +98,7 @@ def upload_file():
             file.save(temp_file_path)
 
             # Read CSV file
-            data = read_csv(temp_file_path)
+            data = read_csv(temp_file_path) #
 
             # Group data
             grouped_data = {}
@@ -115,20 +115,21 @@ def upload_file():
 
             # Render lab schedule HTML with schedule_json
             return render_template('schedule.html', schedule=schedule)
-    return render_template('upload.html')
+    if request.method == 'GET':
+        return render_template('upload.html') #opening the landing page
 
-
+#errors inside the doc
 @app.errorhandler(FeasibilityError)
 def handle_feasibility_error(error):
     error_message = str(error)
-    return render_template('error.html', error_message=error_message), 500
+    return render_template('error.html', error_message=error_message), 400
 
-
+#
 @app.route('/download-sample-schedule')
 def download_sample_schedule():
     sample_schedule_path = './static/sample_schedule.csv'
     return send_file(sample_schedule_path, as_attachment=True)
 
-
+#running
 if __name__ == '__main__':
     app.run(debug=True)
